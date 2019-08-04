@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+DISTRIBUTION = buster
+VERSION = 0.0.1
+PACKAGEVERSION = $(VERSION)-0~$(DISTRIBUTION)0
+TARBALL = opsi-manager-$(VERSION).tar.gz
+URL = https://github.com/homebrew-limelight/manager
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+override_dh_auto_test:
+override_dh_auto_debian/tmp/build:
+override_dh_auto_install:
+	git clone --single-branch --branch backend-test $(URL) debian/tmp/build/
+	mkdir -p debian/opsi-manager/usr/lib/python3/dist-packages/
+	mkdir -p debian/opsi-manager/usr/share/opensight/
+	mkdir -p debian/opsi-manager/usr/bin/
+	git clone https://github.com/homebrew-limelight/async-frontend debian/opsi-manager/usr/share/opensight/async-frontend/
+	cp -r debian/tmp/build/opsi/ debian/opsi-manager/usr/lib/python3/dist-packages/
+	cp -r debian/tmp/build/modules/ debian/opsi-manager/usr/share/opensight/
+	cp debian/tmp/build/demo.py debian/opsi-manager/usr/bin/opsi-manager
+	chmod +x debian/opsi-manager/usr/bin/opsi-manager
+override_dh_gencontrol:
+	dh_gencontrol -- -v$(PACKAGEVERSION)
