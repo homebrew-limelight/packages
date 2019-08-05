@@ -2,6 +2,6 @@ Source: opsi-manager
 Maintainer: Steven Spangler <132@ikl.sh>
 
 Package: opsi-manager
-Depends: python3-aiofiles, python3-appdirs, python3-attr, black, python3-certifi, python3-chardet, python3-click, python3-h11, python3-httptools, python3-idna, python3-isort, python3-mypy, python3-mypy-extensions, python3-requests, python3-toml, python3-typed-ast, python3-typing-extensions, python3-urllib3, python3-uvicorn, python3-uvloop, python3-websockets, python3-starlette, python3-fastapi, python3-pydantic
+Depends: python3-aiofiles, python3-fastapi, python3-requests, python3-uvicorn
 Architecture: any
 Description: OpenSight central manager

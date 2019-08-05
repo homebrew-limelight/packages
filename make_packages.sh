@@ -7,9 +7,9 @@ cd ../../
 mv manager/*.deb packages/
 
 mkdir -p python-packages
-packages=('starlette' 'pydantic' 'fastapi')
+packages=('fastapi')
 # Set version to '' for latest
-versions=('0.12.0' '0.30' '0.33.0')
+versions=('')
 for i in $(seq 0 $((${#packages[@]}-1))); do
 	package="${packages[$i]}"
 	version="${versions[$i]}"
