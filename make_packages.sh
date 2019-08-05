@@ -1,7 +1,7 @@
 mkdir -p packages
 
 cd manager/package
-dpkg-buildpackage -us -uc -b
+dpkg-buildpackage -us -uc -b -a armhf
 dh clean
 cd ../../
 mv manager/*.deb packages/
