@@ -3,6 +3,9 @@ jobs:
   include:
     - stage: build
       script: ./build_scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      cache:
+        directories:
+          - cache
     - stage: build
       script: ./build_scripts/build_component.sh python_packages http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       addons:
@@ -27,7 +30,7 @@ jobs:
             - debhelper
             - fakeroot
     - stage: deploy
-      script: curl -c /dev/null --digest -u travis:$TFG_PASSWORD http://ikl.sh:5000/download/cigroup --output opsi-packages-$(date +%F).tar.gz
+      script: ./build_scripts/create_assets.sh
       deploy:
         provider: releases
         api_key: $GITHUB_KEY

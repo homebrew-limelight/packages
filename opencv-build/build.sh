@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-OPENCV_VERSION="4.1.0"
-
 curl -L -o opencv.tar.gz "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.tar.gz"
 mkdir build/
 tar -xf opencv.tar.gz -C build/
@@ -41,5 +39,5 @@ make -j$(nproc) -C "${CV_DIR}/build/"
 sed -i 's/set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS "TRUE")//' ${CV_DIR}/build/CPackConfig.cmake
 make -C "${CV_DIR}/build/" package
 
-mv "${CV_DIR}"/build/OpenCV-*-python* ../packages/OpenCV-${OPENCV_VERSION}-armhf-python.deb
-mv "${CV_DIR}"/build/OpenCV-*-libs* ../packages/OpenCV-${OPENCV_VERSION}-armhf-libs.deb
+mv "${CV_DIR}"/build/OpenCV-*-python* ../packages/opencv-python_${OPENCV_VERSION}_armhf.deb
+mv "${CV_DIR}"/build/OpenCV-*-libs* ../packages/opencv-libs_${OPENCV_VERSION}_armhf.deb
