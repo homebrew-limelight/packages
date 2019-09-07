@@ -20,6 +20,10 @@ for line in $(cat dependencies); do
 done
 sort -u dependencies -o dependencies
 
+mkdir -p packages
+# fix permission errors
+chown -Rv _apt:root packages
+chmod -Rv 777 packages
 cd packages
 apt -o APT::Architecture=armhf download $(cat ../dependencies)
 cd ..
