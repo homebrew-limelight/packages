@@ -31,6 +31,7 @@ cmake -D CMAKE_BUILD_TYPE=Release \
     -D CPACK_DEBIAN_PACKAGE_NAME="OpenCV" \
     -D CPACK_DEBIAN_PACKAGE_VERSION="4.1.0" \
     -D CPACK_DEBIAN_PACKAGE_ARCHITECTURE="armhf" \
+    -D CPACK_DEBIAN_PACKAGE_DEPENDS="python3-numpy" \
     -B "${CV_DIR}/build/" \
     -S "${CV_DIR}"
 

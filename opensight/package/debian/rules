@@ -16,11 +16,9 @@ override_dh_auto_install:
 	# temp hacky branch
 	git clone --single-branch --branch hacky $(URL) debian/tmp/build/
 	mkdir -p debian/opensight/usr/lib/python3/dist-packages/
-	mkdir -p debian/opensight/usr/share/opensight/
 	mkdir -p debian/opensight/usr/bin/
 	cp -r debian/tmp/build/opsi/ debian/opensight/usr/lib/python3/dist-packages/
-	cp -r debian/tmp/build/modules/ debian/opensight/usr/lib/python3/dist-packages/opsi/
-	cp debian/tmp/build/demo.py debian/opensight/usr/bin/opensight
+	cp debian/tmp/build/opensight.py debian/opensight/usr/bin/opensight
 	chmod +x debian/opensight/usr/bin/opensight
 override_dh_gencontrol:
 	dh_gencontrol -- -v$(PACKAGEVERSION)

@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-OPENCV_VERSION="4.1.0"
+OPENCV_VERSION="4.1.1"
 DOCKER="docker"
 
 if ! ${DOCKER} ps >/dev/null 2>&1; then
