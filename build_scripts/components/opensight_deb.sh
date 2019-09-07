@@ -2,8 +2,8 @@
 
 set -e
 
-cd manager/package
+cd opensight/package
 dpkg-buildpackage -us -uc -b -a armhf
 
 cd ../../
-mv manager/*.deb packages/
+mv opensight/*.deb packages/

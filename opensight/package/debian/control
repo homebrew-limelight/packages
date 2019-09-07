@@ -1,7 +1,7 @@
-Source: opsi-manager
+Source: opensight
 Maintainer: Steven Spangler <132@ikl.sh>
 
-Package: opsi-manager
+Package: opensight
 Depends: python3-aiofiles, python3-fastapi, python3-requests, python3-uvicorn
 Architecture: any
 Description: OpenSight central manager
