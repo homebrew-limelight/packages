@@ -13,8 +13,7 @@ override_dh_auto_clean:
 override_dh_auto_test:
 override_dh_auto_debian/tmp/build:
 override_dh_auto_install:
-	# temp hacky branch
-	git clone --single-branch --branch hacky $(URL) debian/tmp/build/
+	git clone $(URL) debian/tmp/build/
 	mkdir -p debian/opensight/usr/lib/python3/dist-packages/
 	mkdir -p debian/opensight/usr/bin/
 	cp -r debian/tmp/build/opsi/ debian/opensight/usr/lib/python3/dist-packages/
