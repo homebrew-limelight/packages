@@ -5,7 +5,7 @@ set -e
 mkdir -p python-packages
 
 # Set version to '' for latest
-declare -A packages=( [starlette]='' [pydantic]=0.30 [fastapi]='' [uvicorn]='' [toposort]='' )
+declare -A packages=( [starlette]='' [pydantic]=0.30 [fastapi]='' [uvicorn]='' [toposort]='' [pynetworktables]='' )
 for i in "${!packages[@]}"; do
 	package="$i"
 	version="${packages[$i]}"
