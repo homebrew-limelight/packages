@@ -5,8 +5,7 @@ dh clean
 cd ../../
 
 rm -rf packages
-rm -rf opensight/*opsi*
+rm -rf opensight/*opensight*
 rm -rf python-packages
-sudo rm -rf opencv-build/build
-
-rm dependencies
+rm -rf opencv-build/build
+rm -f dependencies
