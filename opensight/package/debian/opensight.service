@@ -1,0 +1,8 @@
+[Unit]
+Description=Starts OpenSight
+
+[Service]
+ExecStart=/usr/bin/opensight
+
+[Install]
+WantedBy=multi-user.target

@@ -28,6 +28,7 @@ jobs:
           packages:
             - dpkg-dev
             - debhelper
+            - dh-systemd
             - fakeroot
     - stage: deploy
       script: ./build_scripts/create_assets.sh
