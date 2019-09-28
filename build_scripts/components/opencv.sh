@@ -19,6 +19,7 @@ if [ ! -e "cache/opencv-python_${OPENCV_VERSION}_armhf.deb" ]; then
         --name "opencv-build_work" \
         opsi-opencv \
         bash -e -o pipefail -c "cd /packages/opencv-build/; OPENCV_VERSION=${OPENCV_VERSION} ./build.sh"
+    mkdir -p cache/
     rm -rf cache/*
     cp "packages/opencv-python_${OPENCV_VERSION}_armhf.deb" "cache/opencv-python_${OPENCV_VERSION}_armhf.deb"
     cp "packages/opencv-libs_${OPENCV_VERSION}_armhf.deb" "cache/opencv-libs_${OPENCV_VERSION}_armhf.deb"

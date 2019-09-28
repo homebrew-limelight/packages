@@ -1,6 +1,7 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
+set -e
 
-build_scripts/start_build.sh
+mkdir -p packages
 
 for i in build_scripts/components/*; do
     ./$i
