@@ -2,7 +2,7 @@
 Description=Starts OpenSight
 
 [Service]
-ExecStart=/usr/bin/opensight
+ExecStart=/usr/bin/opensight -n /boot/opensight/
 KillMode=process
 
 [Install]
