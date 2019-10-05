@@ -16,7 +16,12 @@ date=$(date +%F)
 
 mkdir -p packages/deps
 curl -c /dev/null --digest -u travis:$TFG_PASSWORD http://ikl.sh:5000/download/cigroup --output opsi-packages-$date.tar.gz
+# use updater format for w/o deps targz
 tar -xf opsi-packages-$date.tar.gz -C packages/deps/
+rm opsi-packages-$date.tar.gz
+cd packages/
+tar -czf ../opsi-packages-$date.tar.gz *
+cd ../
 
 ${DOCKER} run --rm --privileged \
     --volume "$(pwd)":/packages \
