@@ -15,7 +15,7 @@ fi
 date=$(date +%F)
 
 mkdir -p packages/deps
-# curl -c /dev/null --digest -u travis:$TFG_PASSWORD http://ikl.sh:5000/download/cigroup --output opsi-packages-$date.tar.gz
+curl -c /dev/null --digest -u travis:$TFG_PASSWORD http://ikl.sh:5000/download/cigroup --output opsi-packages-$date.tar.gz
 tar -xf opsi-packages-$date.tar.gz -C packages/deps/
 
 ${DOCKER} run --rm --privileged \
