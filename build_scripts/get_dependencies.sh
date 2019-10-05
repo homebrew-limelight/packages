@@ -6,17 +6,17 @@
 # for downloading commands only
 APT_OPTS='-o APT::Architecture=armhf -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/raspbian.list"'
 
-apt update
-apt install -y curl gnupg
+apt-get update
+apt-get install -y curl gnupg
 
 echo "deb http://archive.raspbian.org/raspbian buster main contrib non-free" > /etc/apt/sources.list.d/raspbian.list
 echo "deb-src http://archive.raspbian.org/raspbian buster main contrib non-free" >> /etc/apt/sources.list.d/raspbian.list
 curl https://archive.raspbian.org/raspbian.public.key | apt-key add -
 
 dpkg --add-architecture armhf
-apt update
+apt-get update
 
-for file in packages/*; do
+for file in packages/deps/*; do
     #                                          Removes depends  Comma to newline   Remove all after : and (
     dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' -e 's/:.*$//g' -e 's/ (.*$//g' > dependencies
 done
@@ -46,13 +46,13 @@ done
 mv new_dependencies dependencies
 sort -u dependencies -o dependencies
 
-mkdir -p packages
+mkdir -p packages/system-deps
 # fix permission errors
 chown -R _apt:root packages
 chmod -R 777 packages
-cd packages
-apt "$APT_OPTS" download $(cat ../dependencies)
-cd ..
+cd packages/system-deps
+apt-get "$APT_OPTS" download $(cat ../../dependencies)
+cd ../../
 
 # cleanup
 rm dependencies
