@@ -24,7 +24,7 @@ done
 sort -u dependencies -o dependencies
 
 # remove packages already in folder
-for file in packages/*; do
+for file in packages/deps/*; do
     remove="$(basename $file | sed 's/_.*$//')"
     sed -i "/$remove/d" dependencies
 done
