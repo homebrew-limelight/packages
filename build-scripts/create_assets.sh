@@ -28,7 +28,7 @@ ${DOCKER} run --rm --privileged \
     --name "opsi-depends" \
     debian:buster \
     bash -e -o pipefail -c \
-    'dpkg --add-architecture armhf; cd packages/; build_scripts/get_dependencies.sh packages/'
+    'dpkg --add-architecture armhf; cd packages/; build-scripts/get_dependencies.sh packages/'
 
 
 cd packages

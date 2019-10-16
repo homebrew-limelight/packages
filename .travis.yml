@@ -1,13 +1,18 @@
-dist: bionic
 jobs:
   include:
     - stage: build
-      script: ./build_scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      os: linux
+      arch: amd64
+      dist: bionic
+      script: ./build-scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       cache:
         directories:
           - cache
     - stage: build
-      script: ./build_scripts/build_component.sh python_packages http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      os: linux
+      arch: arm64
+      dist: bionic
+      script: ./build-scripts/build_component.sh python_packages http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       addons:
         apt:
           update: true
@@ -18,12 +23,16 @@ jobs:
             - libsystemd-dev
             - python-all
             - python3-setuptools
+            - build-essential
             - debhelper
             - fakeroot
       before_install:
         - pip3 install --user stdeb
     - stage: build
-      script: ./build_scripts/build_component.sh opensight_deb http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      os: linux
+      arch: amd64
+      dist: bionic
+      script: ./build-scripts/build_component.sh opensight_deb http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       addons:
         apt:
           update: true
@@ -33,7 +42,7 @@ jobs:
             - dh-systemd
             - fakeroot
     - stage: deploy
-      script: ./build_scripts/create_assets.sh
+      script: ./build-scripts/create_assets.sh
       deploy:
         provider: releases
         api_key: $GITHUB_KEY
