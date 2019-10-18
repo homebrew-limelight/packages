@@ -13,16 +13,18 @@ if ! ${DOCKER} ps >/dev/null; then
         exit 1
 fi
 
-rm -f python-packages/qemu-arm-static
-cp /usr/bin/qemu-arm-static python-packages/qemu-arm-static
-${DOCKER} build -t opsi-python:latest python-packages
-rm python-packages/qemu-arm-static
 
 if $(uname -m | grep -q -e "arm" -e "aarch"); then
     python-packages/build.sh
     python-packages/build.sh --armhf
 else
     python-packages/build.sh
+
+    rm -f python-packages/qemu-arm-static
+    cp /usr/bin/qemu-arm-static python-packages/qemu-arm-static
+    ${DOCKER} build -t opsi-python:latest python-packages
+    rm python-packages/qemu-arm-static
+
     ${DOCKER} run --rm --privileged \
         --volume "$(pwd)":/packages \
         --name "opsi-python-work" \
