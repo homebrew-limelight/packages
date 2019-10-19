@@ -4,6 +4,7 @@ set -e
 
 cd python-packages
 mkdir -p build
+rm -rf build/**/deb_dist/
 
 # Set version to '' for latest
 declare -A packages=( [starlette]='' [pydantic]='' [fastapi]='' [uvicorn]='' [toposort]='' [pynetworktables]='' [python-multipart]='' )

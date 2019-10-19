@@ -1,15 +1,16 @@
 #!/bin/bash -e
 
+cd opencv
+
 curl -L -o opencv.tar.gz "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.tar.gz"
-mkdir build/
-tar -xf opencv.tar.gz -C build/
+mkdir -p build/
+tar xf opencv.tar.gz -C build/
 rm opencv.tar.gz
 
 CV_DIR="build/opencv-${OPENCV_VERSION}"
 
 mkdir -p "${CV_DIR}/build"
 
-ls ${CV_DIR}/platforms/linux/arm-gnueabi.toolchain.cmake
 cmake -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_TOOLCHAIN_FILE="../platforms/linux/arm-gnueabi.toolchain.cmake" \
     -D OPENCV_ENABLE_NONFREE=ON \
@@ -39,5 +40,11 @@ make -j$(nproc) -C "${CV_DIR}/build/"
 sed -i 's/set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS "TRUE")//' ${CV_DIR}/build/CPackConfig.cmake
 make -C "${CV_DIR}/build/" package
 
-mv "${CV_DIR}"/build/OpenCV-*-python* ../packages/opencv-python_${OPENCV_VERSION}_armhf.deb
-mv "${CV_DIR}"/build/OpenCV-*-libs* ../packages/opencv-libs_${OPENCV_VERSION}_armhf.deb
+cd ..
+
+mkdir -p cache/
+rm -rf cache/*
+mv opencv/"${CV_DIR}"/build/OpenCV-*-python* cache/opencv-python_${OPENCV_VERSION}_armhf.deb
+mv opencv/"${CV_DIR}"/build/OpenCV-*-libs* cache/opencv-libs_${OPENCV_VERSION}_armhf.deb
+
+rm -rf opencv/build

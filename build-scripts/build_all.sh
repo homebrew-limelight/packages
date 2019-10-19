@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash -e
 
 mkdir -p packages
 
@@ -7,5 +6,5 @@ for i in build-scripts/components/*; do
     ./$i
 done
 
-build-scripts/make_packages.sh
+build-scripts/create_assets.sh
 build-scripts/clean.sh

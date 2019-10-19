@@ -1,33 +1,29 @@
 #!/bin/bash -e
 
-
-OPENCV_VERSION="4.1.1"
-DOCKER="docker"
-
-if ! ${DOCKER} ps >/dev/null 2>&1; then
-        DOCKER="sudo docker"
-fi
-if ! ${DOCKER} ps >/dev/null; then
-        echo "error connecting to docker:"
-        ${DOCKER} ps
-        exit 1
-fi
-
-
-if $(uname -m | grep -q -e "arm" -e "aarch"); then
+if [ "$USING_DEBIAN" -eq "1" ]; then
     python-packages/build.sh
+else
+    ${DOCKER} build -t opsi-main docker/main
+    ${DOCKER} run --rm --privileged \
+        --volume "$(pwd)":/packages \
+        --name "opsi-python-main" \
+        opsi-main \
+        bash -e -o pipefail -c \
+        "cd /packages/; python-packages/build.sh; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker
+fi
+
+if [ "$USING_ARM" -eq "1" ]; then
     python-packages/build.sh --armhf
 else
-    python-packages/build.sh
-
-    rm -f python-packages/qemu-arm-static
-    cp /usr/bin/qemu-arm-static python-packages/qemu-arm-static
-    ${DOCKER} build -t opsi-python:latest python-packages
-    rm python-packages/qemu-arm-static
+    rm -f docker/arm/qemu-arm-static
+    cp /usr/bin/qemu-arm-static docker/arm/qemu-arm-static
+    ${DOCKER} build -t opsi-arm:latest docker/arm
+    rm docker/arm/qemu-arm-static
 
     ${DOCKER} run --rm --privileged \
         --volume "$(pwd)":/packages \
-        --name "opsi-python-work" \
-        opsi-python:latest \
-        bash -e -o pipefail -c "cd /packages/; python-packages/build.sh --armhf && chmod -R 777 python-packages/build"
+        --name "opsi-python" \
+        opsi-arm \
+        bash -e -o pipefail -c \
+        "cd /packages/; python-packages/build.sh --armhf; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker
 fi

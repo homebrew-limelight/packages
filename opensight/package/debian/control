@@ -2,6 +2,6 @@ Source: opensight
 Maintainer: Steven Spangler <132@ikl.sh>
 
 Package: opensight
-Depends: opencv-python, opencv-libs, python3-pydantic, python3-pynetworktables, python3-python-multipart, python3-starlette, python3-toposort, python3-aiofiles, python3-fastapi, python3-requests, python3-uvicorn, python3-numpy, python3-uvloop, python3-h11, python3-jinja2
+Depends: opencv-python, opencv-libs, python3-pydantic, python3-pynetworktables, python3-python-multipart, python3-starlette, python3-toposort, python3-aiofiles, python3-fastapi, python3-requests, python3-uvicorn, python3-numpy, python3-uvloop, python3-h11, python3-jinja2, python3-netifaces
 Architecture: all
 Description: OpenSight central manager

@@ -4,7 +4,7 @@ jobs:
       os: linux
       arch: amd64
       dist: bionic
-      script: ./build-scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      script: ./build-scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD DOCKER
       cache:
         directories:
           - cache
@@ -42,7 +42,7 @@ jobs:
             - dh-systemd
             - fakeroot
     - stage: deploy
-      script: ./build-scripts/create_assets.sh
+      script: ./build-scripts/create_assets.sh --travis
       deploy:
         provider: releases
         api_key: $GITHUB_KEY

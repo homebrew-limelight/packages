@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 DISTRIBUTION = buster
-VERSION = 0.0.9
+VERSION = $(OPENSIGHT_VERSION)
 PACKAGEVERSION = $(VERSION)-0~$(DISTRIBUTION)0
 TARBALL = opensight-$(VERSION).tar.gz
 URL = https://github.com/opensight-cv/opensight

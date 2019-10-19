@@ -1,13 +1,12 @@
 #!/bin/bash -e
 
-# PLEASE NOTE: running this script on a non-virtual machine/container will have dubious results at best
+# PLEASE NOTE: running this script on a non-virtual machine/container is currently not recommended
 
 # this doesn't really work most of the time
 # for downloading commands only
-APT_OPTS='-o APT::Architecture=armhf -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/raspbian.list"'
+cd dependencies/
 
-apt-get update
-apt-get install -y curl gnupg
+APT_OPTS="-o APT::Architecture=armhf -o Dir::Etc::sourcelist=\"$(realpath .)/raspbian.list\""
 
 echo "deb http://archive.raspbian.org/raspbian buster main contrib non-free" > /etc/apt/sources.list.d/raspbian.list
 echo "deb-src http://archive.raspbian.org/raspbian buster main contrib non-free" >> /etc/apt/sources.list.d/raspbian.list
@@ -16,15 +15,16 @@ curl https://archive.raspbian.org/raspbian.public.key | apt-key add -
 dpkg --add-architecture armhf
 apt-get update
 
+rm -f dependencies
 touch dependencies
-for file in packages/deps/*; do
+for file in ../packages/deps/*; do
     #                                          Removes depends  Comma to newline   Remove all after : and (
     dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' -e 's/:.*$//g' -e 's/ (.*$//g' >> dependencies
 done
 sort -u dependencies -o dependencies
 
 # remove packages already in folder
-for file in packages/deps/*; do
+for file in ../packages/deps/*; do
     remove="$(basename $file | sed 's/_.*$//')"
     sed -i "/$remove/d" dependencies
 done
@@ -40,23 +40,27 @@ sort -u dependencies -o dependencies
 # here, it iterates through all of the dependencies and checks if it is an "all" package or an armhf/amd64 package (amd64 happens when APT:Architecture does not work)
 # this ensures that apt-download always downloads the correct architecture package
 for dep in $(cat dependencies); do
-    apt-cache show $dep | grep Architecture | grep -q all && echo "$dep" >> new_dependencies
-    apt-cache show $dep | grep Architecture | grep -q -e armhf -e amd64 && echo "$dep:armhf" >> new_dependencies
+    echo "Checking dependency: $dep"
+    cacheshow="$(apt-cache show $dep | grep Architecture)"
+    echo $cacheshow | grep -q all && echo "$dep" >> new_dependencies
+    echo $cacheshow | grep -q -e armhf -e amd64 && echo "$dep:armhf" >> new_dependencies
 done
 
 mv new_dependencies dependencies
 sort -u dependencies -o dependencies
 
-mkdir -p packages/system-deps
-# fix permission errors
-chown -R _apt:root packages
-chmod -R 777 packages
-cd packages/system-deps
-apt-get "$APT_OPTS" download $(cat ../../dependencies)
+mkdir -p ../packages/system-deps
+# fix apt-get download permission errors
+chown -R _apt:root ../packages
+chmod -R 777 ../packages
+cd ../packages/system-deps
+echo "Downloading dependencies..."
+apt-get "$APT_OPTS" download $(cat ../../dependencies/dependencies)
 cd ../../
 
 # cleanup
-rm dependencies
+rm dependencies/dependencies
 chown -R _apt:root packages
 chmod -R 777 packages
-dpkg --remove-architecture armhf
+
+cd ../
