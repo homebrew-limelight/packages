@@ -46,6 +46,7 @@ export DOCKER
 # ----------SYSTEM VARS----------
 USING_ARM=0
 USING_DEBIAN=0
+uname -m
 if $(uname -m | grep -q -e "arm" -e "aarch") && [ "$ALWAYS_DOCKER" -eq "0" ]; then
     USING_ARM=1
 fi

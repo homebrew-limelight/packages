@@ -1,17 +1,11 @@
 jobs:
   include:
     - stage: build
-      os: linux
-      arch: amd64
-      dist: bionic
       script: ./build-scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD DOCKER
       cache:
         directories:
           - cache
     - stage: build
-      os: linux
-      arch: arm32
-      dist: bionic
       script: ./build-scripts/build_component.sh python_packages http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       addons:
         apt:
@@ -26,12 +20,10 @@ jobs:
             - build-essential
             - debhelper
             - fakeroot
+            - qemu-user-static
       before_install:
         - pip3 install --user stdeb
     - stage: build
-      os: linux
-      arch: amd64
-      dist: bionic
       script: ./build-scripts/build_component.sh opensight_deb http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       addons:
         apt:
