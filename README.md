@@ -27,7 +27,7 @@ Once your machine finishes rebooting, you should now have OpenSight installed! S
 # For Developers: How can I generate my own packages?
 
 Short Answer:
-You can simply run `build.sh --docker` to generate a normal tarfile. If you would also like to generate a tarfile with the dependencies, run `build.sh -w --docker` to generate a tarfile with all dependencies for the armhf platform. 
+You can simply run `./build.sh --docker` to generate a normal tarfile. If you would also like to generate a tarfile with the dependencies, run `./build.sh -w --docker` to generate a tarfile with all dependencies for the armhf platform. 
 
 Long Answer:
 If you would like to make your build more efficient, you can slim the amount Docker is used in the build.
@@ -47,11 +47,12 @@ Some require a full-Debian system rather than any derivative because many of the
 
 In order to run without Docker, these Debian dependencies must be satisfied:
 ```
-python3-dev python3.7-dev python3-numpy libpython3.7-dev:armhf \ # For python-packages and OpenCV
-python3-all-dev dpkg-dev libsystemd-dev debhelper fakeroot qemu-arm-static \ # For main package and python-packages
-libtiff-dev:armhf zlib1g-dev:armhf libjpeg-dev:armhf libpng-dev:armhf libavcodec-dev:armhf libavformat-dev:armhf libswscale-dev:armhf libv4l-dev:armhf libxvidcore-dev:armhf libx264-dev:armhf \ # For OpenCV
-crossbuild-essential-armhf gfortran-arm-linux-gnueabihf cmake pkg-config \ # For OpenCV
-curl gnupg # For dependencies
+python3-dev python3.7-dev python3-numpy libpython3.7-dev:armhf \
+python3-pip python-all \
+python3-all-dev dpkg-dev libsystemd-dev debhelper fakeroot \
+libtiff-dev:armhf zlib1g-dev:armhf libjpeg-dev:armhf libpng-dev:armhf libavcodec-dev:armhf libavformat-dev:armhf libswscale-dev:armhf libv4l-dev:armhf libxvidcore-dev:armhf libx264-dev:armhf \
+crossbuild-essential-armhf gfortran-arm-linux-gnueabihf cmake pkg-config \
+git curl gnupg
 ```
 
-If you wish to skip the hassle of installing these dependencies regardless of the above criteria, just run `build.sh --docker` or `build.sh -w --docker`.
+If you wish to skip the hassle of installing these dependencies regardless of the above criteria, just run `./build.sh --docker` or `./build.sh -w --docker`.
