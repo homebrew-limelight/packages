@@ -4,6 +4,8 @@ Description=Starts OpenSight
 [Service]
 ExecStart=/usr/bin/opensight -n /boot/opensight/
 KillMode=process
+Restart=always
+RestartSec=3s
 
 [Install]
 WantedBy=multi-user.target
