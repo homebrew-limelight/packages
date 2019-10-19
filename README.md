@@ -39,7 +39,7 @@ Each component uses Docker if the following criteria are **not** met:
     * Must be running on a Debian system.
 * Python Packages:
     * `all`-platform packages: Must be running on a Debian-based operating system.
-    * `armhf`-platform packages: Must be running on an arm-based platform with a Debian-based operating system.
+    * `armhf`-platform packages: Must be running on an arm32-based platform with a Debian-based operating system.
 * Dependencies:
     * Must be running on an Debian-based operating system.
 
