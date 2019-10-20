@@ -1,5 +1,24 @@
 # OpenSight Packages
-[![Build Status](https://travis-ci.com/opensight-cv/packages.svg)](https://travis-ci.com/opensight-cv/packages)
+
+<p align="center">
+    <a href="https://travis-ci.com/opensight-cv/packages">
+        <img src="https://travis-ci.com/opensight-cv/packages.svg" 
+            alt="Build Status"></a>
+    <a href="https://discordapp.com/invite/hPqpdsK">
+        <img src="https://img.shields.io/discord/573690061720125441?label=Discord&style=flat"
+            alt="Join our Server"></a>
+    <a href="https://github.com/opensight-cv/packages/blob/master/LICENSE">
+        <img src="https://img.shields.io/github/license/opensight-cv/packages?style=flat"
+            alt="MIT License"></a>
+</p>
+
+OpenSight is an FRC-focused, free and open source computer vision system targeted specifically for the Raspberry Pi. This repo holds the build scripts for OpenSight's packages.
+
+[**Click here to go to the main OpenSight source repository.**](https://github.com/opensight-cv/opensight)
+
+[**Click here to go to the packages releases.**](https://github.com/opensight-cv/packages/releases)
+
+[**Click here to go to the Raspberry Pi image releases.**](https://github.com/opensight-cv/opsi-gen/releases)
 
 This is where all of the packages for the OpenSight project are generated. Here is a list of what is built and provided by this repository:
 
