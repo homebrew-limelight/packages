@@ -1,4 +1,5 @@
 # OpenSight Packages
+[![Build Status](https://travis-ci.com/opensight-cv/packages.svg)](https://travis-ci.com/opensight-cv/packages)
 
 This is where all of the packages for the OpenSight project are generated. Here is a list of what is built and provided by this repository:
 
