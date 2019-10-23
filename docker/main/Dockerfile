@@ -10,5 +10,12 @@ RUN apt-get -y update && \
         python3-all-dev dpkg-dev libsystemd-dev debhelper fakeroot \
         libtiff-dev:armhf zlib1g-dev:armhf libjpeg-dev:armhf libpng-dev:armhf libavcodec-dev:armhf libavformat-dev:armhf libswscale-dev:armhf libv4l-dev:armhf libxvidcore-dev:armhf libx264-dev:armhf \
         crossbuild-essential-armhf gfortran-arm-linux-gnueabihf cmake pkg-config \
-        git curl gnupg
+        curl gnupg
 RUN pip3 install stdeb
+
+# yes yes, frankendebian, i know, temporary measure
+RUN echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list.d/git.list \
+     &&      apt-get update              \
+     &&      apt-get install -y git      \
+     &&      apt-get clean all
+RUN rm /etc/apt/sources.list.d/git.list
