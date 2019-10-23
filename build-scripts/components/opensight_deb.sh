@@ -3,7 +3,7 @@
 if [ "$USING_DEBIAN" -eq "1" ]; then
     opensight/build.sh
 else
-    ${DOCKER} build -t opsi-main docker/main
+    ${DOCKER} build -t opsi-main-git docker/main-git
     ${DOCKER} run --rm --privileged \
         --volume "$(pwd)":/packages \
         --name "opsi-deb" \
