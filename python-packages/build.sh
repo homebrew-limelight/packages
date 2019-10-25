@@ -7,9 +7,9 @@ mkdir -p build
 rm -rf build/**/deb_dist/
 
 # Set version to '' for latest
-declare -A packages=( [starlette]='' [pydantic]='' [fastapi]='' [uvicorn]='' [toposort]='' [pynetworktables]='' [python-multipart]='' )
+declare -A packages=( [starlette]='0.*' [pydantic]='0.*' [fastapi]='0.*' [uvicorn]='0.*' [toposort]='1.*' [pynetworktables]='2019.*' [python-multipart]='0.*' )
 if [ "$1" == "--armhf" ]; then
-    declare -A packages=( [pystemd]='' )
+    declare -A packages=( [pystemd]='0.*' )
 fi
 for i in "${!packages[@]}"; do
 	package="$i"
