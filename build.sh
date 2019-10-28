@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # -----------VERSIONS------------
-export OPENSIGHT_VERSION="0.0.24"
+export OPENSIGHT_VERSION="$(cat VERSION)"
 export OPENCV_VERSION="4.1.1"
 # -------------------------------
 
