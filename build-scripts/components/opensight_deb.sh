@@ -7,7 +7,7 @@ else
     ${DOCKER} run --rm --privileged \
         --volume "$(pwd)":/packages \
         --name "opsi-deb" \
-        opsi-main \
+        opsi-main-git \
         bash -e -o pipefail -c \
         "cd packages; OPENSIGHT_VERSION=${OPENSIGHT_VERSION} opensight/build.sh"
 fi

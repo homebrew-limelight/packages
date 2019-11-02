@@ -13,7 +13,7 @@ override_dh_auto_clean:
 override_dh_auto_test:
 override_dh_auto_debian/tmp/build:
 override_dh_auto_install:
-	git clone $(URL) debian/tmp/build/
+	git clone --depth 1 --branch "v$(VERSION)" "$(URL)" debian/tmp/build/
 	echo "$(VERSION)" > debian/tmp/build/opsi/version.py
 	mkdir -p debian/opensight/usr/lib/python3/dist-packages/
 	mkdir -p debian/opensight/usr/bin/
