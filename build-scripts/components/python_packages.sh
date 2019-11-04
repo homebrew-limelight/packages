@@ -9,7 +9,7 @@ else
         --name "opsi-python-main" \
         opsi-main \
         bash -e -o pipefail -c \
-        "cd /packages/; python-packages/build.sh; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker
+        "cd /packages/; OPENSIGHT_VERSION=$OPENSIGHT_VERSION python-packages/build.sh; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker
 fi
 
 if [ "$USING_ARM" -eq "1" ]; then
@@ -25,5 +25,5 @@ else
         --name "opsi-python" \
         opsi-arm \
         bash -e -o pipefail -c \
-        "cd /packages/; python-packages/build.sh --armhf; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker
+        "cd /packages/; OPENSIGHT_VERSION=$OPENSIGHT_VERSION python-packages/build.sh --armhf; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker
 fi

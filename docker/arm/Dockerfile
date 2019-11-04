@@ -8,5 +8,5 @@ RUN apt-get -y update && \
     apt-get -y install \
         python3-pip python3-all python3-setuptools python-all \
         python3-all-dev dpkg-dev libsystemd-dev \
-        debhelper fakeroot
+        debhelper fakeroot unzip git
 RUN pip3 install stdeb
