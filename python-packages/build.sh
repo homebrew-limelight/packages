@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # exit on fail
 set -e
 
@@ -20,12 +19,18 @@ mkdir -p build
 rm -rf build/**/deb_dist/
 
 # get requirements.txt from current version
-git clone --depth 1 --branch "v${OPENSIGHT_VERSION}" https://github.com/opensight-cv/opensight src/ 2>/dev/null 1>/dev/null
+if [[ "${OPENSIGHT_VERSION}" != "master" ]]; then
+    OPENSIGHT_VERSION="v${OPENSIGHT_VERSION}"
+fi
+git clone --depth 1 --branch "${OPENSIGHT_VERSION}" https://github.com/opensight-cv/opensight src/ 2>/dev/null 1>/dev/null
 mv src/requirements.txt build/requirements.txt
 rm -rf src
 
 # get versions for raspbian packages
-curl -o build/Packages.gz http://archive.raspbian.org/raspbian/dists/buster/main/binary-armhf/Packages.gz
+if [[ ! -f ../cache/Packages.gz ]]; then
+    curl -o ../cache/Packages.gz http://archive.raspbian.org/raspbian/dists/buster/main/binary-armhf/Packages.gz
+fi
+cp ../cache/Packages.gz build/
 
 # Set version to '' for latest
 declare -A packages
@@ -34,6 +39,7 @@ for line in $(cat build/requirements.txt); do
     VER=$(echo $line | cut -d'=' -f 3)
     packages[$PKG]=$VER
 done
+rm build/requirements.txt
 
 # if run in armhf mode only build packages shown, remove otherwise
 armhf_only=( pystemd )
@@ -67,29 +73,19 @@ for i in "${!packages[@]}"; do
 
     echo REQUIRED: $version AVAILABLE: $repo_version
     same_minor_ver $version $repo_version && echo Package available through Raspbian repository, skipping... && continue
+    echo "$package==$version" >> build/requirements.txt
+done
 
-    mkdir -p "build/$package"
-    if [ "$version" == "" ]; then
-        pip3 download --no-binary=:all: "$package" -d "build/$package"
-    else
-        pip3 download --no-binary=:all: "$package==$version" -d "build/$package"
-    fi
+rm -rf build
+mkdir -p build
 
-    cd "build/$package"
-    [ -e "$package"*".zip" ] && unzip build $package*.zip && rm $package*.zip
-    [ -e "$package"*".tar.gz" ] && tar xf $package*.tar.gz && rm $package*.tar.gz
+sed "s#SCRIPT_PATH#$(pwd)#g" "py2deb.ini" > "py2deb_processed.ini"
+py2deb -c "./py2deb_processed.ini" -- -r buid/requirements.txt
+rm py2deb_processed.ini
 
-    cd $package*
-    # ensure license doesn't get added to package (and end up in /usr/LICENSE.md)
-    sed -i 's/\["LICENSE.md"\]/[]/' setup.py
-
-    python3 setup.py --command-packages=stdeb.command bdist_deb
-    if [ "$1" == "--armhf" ]; then
-        cp deb_dist/python3-$package_*_armhf.deb ../../../../packages/
-    else
-        cp deb_dist/python3-$package_*_all.deb ../../../../packages/
-    fi
-    cd ../../../
+for line in $(cat build/requirements.txt); do
+    PKG=$(echo $line | cut -d'=' -f 1)
+    mv "build/python3-$PKG"* "../packages/"
 done
 
 cd ../
