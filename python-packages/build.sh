@@ -15,8 +15,8 @@ same_minor_ver() {
 
 # setup
 cd python-packages
+rm -rf build
 mkdir -p build
-rm -rf build/**/deb_dist/
 
 # get requirements.txt from current version
 if [[ "${OPENSIGHT_VERSION}" != "master" ]]; then
@@ -61,6 +61,7 @@ else
     done
 fi
 
+touch build/requirements.txt
 for i in "${!packages[@]}"; do
     package="$i"
     version="${packages[$i]}"
@@ -76,11 +77,8 @@ for i in "${!packages[@]}"; do
     echo "$package==$version" >> build/requirements.txt
 done
 
-rm -rf build
-mkdir -p build
-
 sed "s#SCRIPT_PATH#$(pwd)#g" "py2deb.ini" > "py2deb_processed.ini"
-py2deb -c "./py2deb_processed.ini" -- -r buid/requirements.txt
+py2deb -c "./py2deb_processed.ini" -- -r build/requirements.txt
 rm py2deb_processed.ini
 
 for line in $(cat build/requirements.txt); do

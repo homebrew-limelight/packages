@@ -6,9 +6,7 @@ if [ "${USING_DEBIAN:-0}" -eq "1" ]; then
     cd ../../
 fi
 
-rm -rf packages
 rm -rf opensight/*opensight*
-rm -f opensight/package/debian/changelog
 rm -rf opencv/build
 rm -rf python-packages/build
 rm -f dependencies/dependencies
