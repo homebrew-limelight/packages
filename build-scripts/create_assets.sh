@@ -13,9 +13,10 @@ if [ "$USING_TRAVIS" -eq "1" ]; then
     tar xf opsi-packages-$date.tar.gz -C packages/
     rm opsi-packages-$date.tar.gz
 fi
+cp assets/upgrade.sh packages/
 cd packages/
 cp -rf *.* deps/
-rm -f *.*
+rm -f *.deb
 tar czf ../build/opsi-packages-$date.tar.gz *
 cd ../
 
