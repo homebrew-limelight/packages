@@ -24,5 +24,5 @@ make -j$(nproc) -C "src/build/"
 make -C "src/build/" package
 
 cd ..
-mv "p-e/src/build/potential-engine"*".deb" "../packages/potential-engine-${VERSION}_armhf.deb"
+mv "p-e/src/build/potential-engine"*".deb" "../packages/potential-engine_${VERSION:1}_armhf.deb"
 rm -rf src/

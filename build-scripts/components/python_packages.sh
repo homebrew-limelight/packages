@@ -22,7 +22,7 @@ else
 
     ${DOCKER} run --rm --privileged \
         --volume "$(pwd)":/packages \
-        --name "opsi-python" \
+        --name "opsi-python-arm" \
         opsi-arm \
         bash -e -o pipefail -c \
         "cd /packages/; OPENSIGHT_VERSION=$OPENSIGHT_VERSION python-packages/build.sh --armhf; chmod -R 777 python-packages/build" # run chmod 777 since root owns when done in docker

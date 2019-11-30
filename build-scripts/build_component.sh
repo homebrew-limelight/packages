@@ -5,8 +5,10 @@
 # get env vars but don't build
 if [ "$5" == "DOCKER" ]; then
     source ./build.sh -t --no-build --docker
-else
+elif [ ! -z "$2" ]; then
     source ./build.sh -t --no-build
+else 
+    source ./build.sh --no-build
 fi
 
 mkdir -p packages

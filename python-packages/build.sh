@@ -81,6 +81,11 @@ sed "s#SCRIPT_PATH#$(pwd)#g" "py2deb.ini" > "py2deb_processed.ini"
 py2deb -c "./py2deb_processed.ini" -- -r build/requirements.txt
 rm py2deb_processed.ini
 
+# remove broken dependencies
+if [ -f "build/python3-uvicorn"* ]; then
+    ../build-scripts/change_dependencies.sh "build/python3-uvicorn"*
+fi
+
 for line in $(cat build/requirements.txt); do
     PKG=$(echo $line | cut -d'=' -f 1)
     mv "build/python3-$PKG"* "../packages/"

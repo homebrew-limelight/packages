@@ -6,8 +6,6 @@ rm -rf src
 git clone https://github.com/fmtlib/fmt src
 
 cd src
-VERSION="$(git describe --tags $(git rev-list --tags --max-count=1))"
-git checkout "$VERSION"
 mkdir -p build
 cd ..
 
@@ -27,5 +25,5 @@ make -C "src/build/" package
 cd ..
 # fmt is compile AND runtime dep for p-e
 dpkg -i "fmt/src/build/fmt"*".deb"
-mv "fmt/src/build/fmt"*".deb" "../packages/fmt-${VERSION}_armhf.deb"
+mv "fmt/src/build/fmt"*".deb" "../packages/fmt_master_armhf.deb"
 rm -rf src/

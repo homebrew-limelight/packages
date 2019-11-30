@@ -6,11 +6,15 @@
 # for downloading commands only
 cd dependencies/
 
-APT_OPTS="-o APT::Architecture=armhf -o Dir::Etc::sourcelist=\"$(realpath .)/raspbian.list\""
+APT_OPTS="-o APT::Architecture=armhf -o Dir::Etc::sourcelist=\"/etc/apt/sources.list.d/raspbian.list\""
 
-echo "deb http://archive.raspbian.org/raspbian buster main contrib non-free" > /etc/apt/sources.list.d/raspbian.list
+echo "deb http://archive.raspberrypi.org/debian/ buster main" > /etc/apt/sources.list.d/raspbian.list
 echo "deb-src http://archive.raspbian.org/raspbian buster main contrib non-free" >> /etc/apt/sources.list.d/raspbian.list
+echo "deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list.d/raspbian.list
+echo "deb-src http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list.d/raspbian.list
+
 curl https://archive.raspbian.org/raspbian.public.key | apt-key add -
+curl http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
 
 dpkg --add-architecture armhf
 apt-get update
@@ -19,7 +23,7 @@ rm -f dependencies
 touch dependencies
 for file in ../packages/deps/*; do
     #                                          Removes depends  Comma to newline   Remove all after : and (
-    dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' -e 's/:.*$//g' -e 's/ (.*$//g' >> dependencies
+    dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' | sed -e 's/:.*$//g' -e 's/ (.*$//g' >> dependencies
 done
 sort -u dependencies -o dependencies
 

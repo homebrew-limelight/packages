@@ -4,6 +4,8 @@ date=$(date +%F)
 
 if [ "$1" == "--travis" ]; then
     source ./build.sh --no-build -t -w
+elif [ "$1" == "--vars" ]; then
+    source ./build.sh --no-build -w
 fi
 
 mkdir -p packages/deps
