@@ -7,7 +7,7 @@ if [[ "${OPENSIGHT_VERSION}" == "master" ]]; then
 fi
 
 if [ "$USING_DEBIAN" -eq "1" ]; then
-    BRANCH=${BRANCH} opensight-log-server/build.sh
+    BRANCH=${BRANCH} opensight-server/build.sh
 else
     ${DOCKER} build -t opsi-main-git docker/main-git
     ${DOCKER} run --rm --privileged \
@@ -15,5 +15,5 @@ else
         --name "opsi-deb" \
         opsi-main-git \
         bash -e -o pipefail -c \
-        "cd packages; BRANCH=${BRANCH} OPENSIGHT_VERSION=${OPENSIGHT_VERSION} opensight-log-server/build.sh"
+        "cd packages; BRANCH=${BRANCH} OPENSIGHT_VERSION=${OPENSIGHT_VERSION} opensight-server/build.sh"
 fi

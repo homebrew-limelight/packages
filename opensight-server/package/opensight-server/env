@@ -1,0 +1,8 @@
+#!/bin/bash
+
+OPENSIGHT_LOCATION="/usr/lib/python3/dist-packages/opsi"
+
+OPENSIGHT_VERSION=$(cat $OPENSIGHT_LOCATION/version.py 2>&-)
+OPENSIGHT_VERSION=${OPENSIGHT_VERSION:-unknown}
+
+OPENSIGHT_FAVICON="$OPENSIGHT_LOCATION/frontend/www/favicon.ico"
