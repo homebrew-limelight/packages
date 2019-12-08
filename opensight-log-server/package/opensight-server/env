@@ -1,0 +1,3 @@
+#!/bin/bash
+OPENSIGHT_VERSION=$(cat /usr/lib/python3/dist-packages/opsi/version.py 2>&-)
+OPENSIGHT_VERSION=${OPENSIGHT_VERSION:-unknown}

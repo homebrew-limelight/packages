@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenSight Server
+
+[Service]
+ExecStart=/bin/bash /usr/share/opensight-server/shellinabox/start_shellinabox.sh
+KillMode=process
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target

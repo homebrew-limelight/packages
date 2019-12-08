@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+DISTRIBUTION = buster
+VERSION = $(OPENSIGHT_VERSION)
+PACKAGEVERSION = $(VERSION)-0~$(DISTRIBUTION)0
+TARBALL = opensight-server-$(VERSION).tar.gz
+URL = https://github.com/opensight-cv/packages
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+override_dh_auto_test:
+override_dh_auto_debian/tmp/build:
+override_dh_auto_install:
+	mkdir -p debian/opensight-server/usr/share/
+	cp -r opensight-server/ debian/opensight-server/usr/share/
+override_dh_gencontrol:
+	dh_gencontrol -- -v$(PACKAGEVERSION)

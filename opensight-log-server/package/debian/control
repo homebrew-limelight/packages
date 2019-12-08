@@ -1,0 +1,7 @@
+Source: opensight-server
+Maintainer: Daniel Zilberleyb <me@danielz.pw>
+
+Package: opensight-server
+Depends: shellinabox, ccze
+Architecture: all
+Description: Server for OpenSight vision software
