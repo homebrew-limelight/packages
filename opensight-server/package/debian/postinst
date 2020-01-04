@@ -1,1 +1,4 @@
-systemctl mask --now shellinabox
+# There is no way to mask another systemd service from the actual package config
+# If this package is being installed in a system without systemd, such as a Docker container or a chrooted device, this ensures it does fail.
+systemctl mask --now shellinabox || true
+systemctl enable --now opensight-server || true
