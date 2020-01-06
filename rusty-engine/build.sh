@@ -16,3 +16,4 @@ RE_DIR="build/rusty-engine-${RUSTY_VERSION}"
 
 cd ${RE_DIR}
 cargo build --release
+cargo deb
