@@ -198,4 +198,5 @@ opensight-log-server/*opensight-server*
 opencv/build
 python-packages/build
 dependencies/dependencies
+dependencies/new_dependencies
 cache/

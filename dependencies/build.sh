@@ -1,16 +1,17 @@
 #!/bin/bash -e
 
-# PLEASE NOTE: running this script on a non-virtual machine/container is currently not recommended
+# PLEASE NOTE: running this script on a non-virtual machine/container will 100% break your apt lists
 
 # this doesn't really work most of the time
 # for downloading commands only
 cd dependencies/
 
-APT_OPTS="-o APT::Architecture=armhf -o Dir::Etc::sourcelist=\"$(realpath .)/raspbian.list\""
+APT_OPTS="-o APT::Architecture=armhf"
 
-echo "deb http://archive.raspbian.org/raspbian buster main contrib non-free" > /etc/apt/sources.list.d/raspbian.list
-echo "deb-src http://archive.raspbian.org/raspbian buster main contrib non-free" >> /etc/apt/sources.list.d/raspbian.list
-curl https://archive.raspbian.org/raspbian.public.key | apt-key add -
+echo "deb [arch=armhf] http://raspbian.raspberrypi.org/raspbian buster main contrib non-free" > /etc/apt/sources.list
+echo "deb [arch=armhf] http://archive.raspberrypi.org/debian buster main" >> /etc/apt/sources.list
+curl http://raspbian.raspberrypi.org/raspbian.public.key | apt-key add -
+curl http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
 
 dpkg --add-architecture armhf
 apt-get update
