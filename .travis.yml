@@ -35,6 +35,13 @@ jobs:
             - dh-systemd
             - fakeroot
     - stage: build
+      script: ./build-scripts/build_component.sh misc http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      addons:
+        apt:
+          update: true
+          packages:
+            - curl 
+    - stage: build
       script: ./build-scripts/build_component.sh opensight_server_deb http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
       addons:
         apt:
