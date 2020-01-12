@@ -20,7 +20,7 @@ rm -f dependencies
 touch dependencies
 for file in ../packages/deps/*; do
     #                                          Removes depends  Comma to newline   Remove all after : and (
-    dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' -e 's/:.*$//g' -e 's/ (.*$//g' >> dependencies
+    dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' -e 's/:.*$//g' -e 's/\n/ /g' -e 's/(/@/g' -e 's/)/@/g' -e 's/ @\([^@]*\)@//g' >> dependencies
 done
 sort -u dependencies -o dependencies
 
