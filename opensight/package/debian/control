@@ -2,6 +2,6 @@ Source: opensight
 Maintainer: Steven Spangler <132@ikl.sh>
 
 Package: opensight
-Depends: gstreamer1.0-omx, gstreamer1.0-omx-rpi, gstreamer1.0-tools, opencv-libs, opencv-python, opensight-server, python3-aiofiles, python3-fastapi, python3-gpiozero, python3-gst-1.0, python3-h11, python3-jinja2, python3-netifaces, python3-numpy, python3-pydantic, python3-pynetworktables, python3-pystemd, python3-pystemd-dbgsym, python3-python-multipart, python3-requests, python3-starlette, python3-toposort, python3-upgraded-engineer, python3-uvicorn, python3-uvloop, rusty-engine
+Depends: gstreamer1.0-omx, gstreamer1.0-omx-rpi, gstreamer1.0-tools, opencv-libs, opencv-python, opensight-server, python3-aiofiles, python3-fastapi, python3-gi, python3-gpiozero, python3-gst-1.0, python3-h11, python3-jinja2, python3-netifaces, python3-numpy, python3-pydantic, python3-pynetworktables, python3-pystemd, python3-pystemd-dbgsym, python3-python-multipart, python3-requests, python3-starlette, python3-toposort, python3-upgraded-engineer, python3-uvicorn, python3-uvloop, rusty-engine
 Architecture: all
 Description: Easy-to-use, powerful, and free vision suite
