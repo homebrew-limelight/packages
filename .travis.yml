@@ -2,12 +2,12 @@ dist: bionic
 jobs:
   include:
     - stage: build
-      script: ./build-scripts/build_component.sh opencv http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD DOCKER
+      script: ./build-scripts/build_component.sh opencv http://tf.ikl.sh/opsi_armhf/ travis $TFG_PASSWORD DOCKER
       cache:
         directories:
           - cache
     - stage: build
-      script: ./build-scripts/build_component.sh python_packages http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      script: ./build-scripts/build_component.sh python_packages http://tf.ikl.sh/opsi_armhf/ travis $TFG_PASSWORD
       addons:
         apt:
           update: true
@@ -25,7 +25,7 @@ jobs:
       before_install:
         - pip3 install --user stdeb
     - stage: build
-      script: ./build-scripts/build_component.sh opensight_deb http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      script: ./build-scripts/build_component.sh opensight_deb http://tf.ikl.sh/opsi_armhf/ travis $TFG_PASSWORD
       addons:
         apt:
           update: true
@@ -35,14 +35,14 @@ jobs:
             - dh-systemd
             - fakeroot
     - stage: build
-      script: ./build-scripts/build_component.sh misc http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      script: ./build-scripts/build_component.sh misc http://tf.ikl.sh/opsi_armhf/ travis $TFG_PASSWORD
       addons:
         apt:
           update: true
           packages:
             - curl 
     - stage: build
-      script: ./build-scripts/build_component.sh opensight_server_deb http://ikl.sh:5000/cigroup/ travis $TFG_PASSWORD
+      script: ./build-scripts/build_component.sh opensight_server_deb http://tf.ikl.sh/opsi_armhf/ travis $TFG_PASSWORD
       addons:
         apt:
           update: true

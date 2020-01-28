@@ -9,7 +9,7 @@ fi
 mkdir -p packages/deps
 mkdir -p build
 if [ "$USING_TRAVIS" -eq "1" ]; then
-    curl -c /dev/null --digest -u travis:$TFG_PASSWORD http://ikl.sh:5000/download/cigroup --output opsi-packages-$date.tar.gz
+    curl -c /dev/null --digest -u travis:$TFG_PASSWORD http://tf.ikl.sh/download/opsi_armhf --output opsi-packages-$date.tar.gz
     tar xf opsi-packages-$date.tar.gz -C packages/
     rm opsi-packages-$date.tar.gz
 fi
