@@ -2,7 +2,7 @@
 
 # -----------VERSIONS------------
 export OPENSIGHT_VERSION="$(cat VERSION)"
-export OPENCV_VERSION="4.1.1"
+export OPENCV_VERSION="4.1.2"
 # -------------------------------
 
 
