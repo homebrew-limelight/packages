@@ -20,7 +20,9 @@ rm -f dependencies
 touch dependencies
 for file in ../packages/deps/*; do
     #                                          Removes depends  Comma to newline   Remove all after : and (
-    dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/, /\n/g' -e 's/:.*$//g' -e 's/\n/ /g' -e 's/(/@/g' -e 's/)/@/g' -e 's/ @\([^@]*\)@//g' >> dependencies
+    dpkg-deb -I "$file" | grep Depends | sed -e 's/ Depends: //' -e 's/:.*$//g' -e 's/\n/ /g' -e 's/(/@/g' -e 's/)/@/g' -e 's/ @\([^@]*\)@//g' -e "s/, /\n/g" >> dependencies
+    dpkg-deb -I "$file" | grep Recommends | sed -e 's/ Recommends: //' -e 's/:.*$//g' -e 's/\n/ /g' -e 's/(/@/g' -e 's/)/@/g' -e 's/ @\([^@]*\)@//g' -e "s/, /\n/g" >> dependencies
+    dpkg-deb -I "$file" | grep Suggests | sed -e 's/ Suggests: //' -e 's/:.*$//g' -e 's/\n/ /g' -e 's/(/@/g' -e 's/)/@/g' -e 's/ @\([^@]*\)@//g' -e "s/, /\n/g" >> dependencies
 done
 sort -u dependencies -o dependencies
 
@@ -40,6 +42,8 @@ sort -u dependencies -o dependencies
 # APT:Architecture works _sometimes_, but not enough to be anywhere near reliable
 # here, it iterates through all of the dependencies and checks if it is an "all" package or an armhf/amd64 package (amd64 happens when APT:Architecture does not work)
 # this ensures that apt-download always downloads the correct architecture package
+rm -f new_dependencies
+touch new_dependencies
 for dep in $(cat dependencies); do
     echo "Checking dependency: $dep"
     cacheshow="$(apt-cache show $dep | grep Architecture)"
