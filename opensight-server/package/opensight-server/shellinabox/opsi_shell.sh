@@ -9,4 +9,4 @@ echo "Default password: $(tput setaf 1)opensight$(tput sgr0)"
 echo ""
 echo ""
 
-exec login -f opsi
+exec login -f opsi || exec login
