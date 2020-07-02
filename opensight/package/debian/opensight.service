@@ -1,5 +1,5 @@
 [Unit]
-Description=Starts OpenSight
+Description=OpenSight
 
 [Service]
 ExecStart=/usr/bin/opensight -n /boot/opensight/
